@@ -1,0 +1,1446 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Resume Builder - Jobzee</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 25%, #ecfdf5 50%, #f0f9ff 75%, #fefce8 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .template-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .template-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .form-section {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .button-transition {
+      transition: all 0.3s ease;
+    }
+
+    .button-transition:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .animate-bounce-in {
+      animation: bounceIn 0.6s ease-out;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .pattern-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .section-bg {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+  <!-- Simplified Background Elements -->
+  <div class="bg-pattern"></div>
+
+  <header class="bg-gradient-to-br from-green-50 via-blue-50 to-indigo-50 shadow-xl border-b-2 border-green-200">
+    <div class="container mx-auto flex justify-between items-center p-6">
+      <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 flex items-center transform hover:scale-105 transition-all duration-300">
+        <img src="images/jobzeelogo.png" alt="Jobzee Logo" class="h-20 mr-4 animate-pulse" />
+        Jobzee
+      </h1>
+      <nav class="space-x-8 text-gray-800 font-bold">
+        <a href="index2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Home</a>
+        <a href="about2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">About Us</a>
+        <a href="profile.html" id="login-link" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Profile</a>
+        <a href="contact2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Contact</a>
+        <a href="reviews.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Company Reviews</a>
+        <a href="admin.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative bg-gradient-to-br from-green-50 via-blue-50 to-indigo-50 py-20 overflow-hidden">
+    <div class="container mx-auto text-center px-8">
+      <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 mb-6 animate-fadeIn">
+        Build Your Perfect Resume
+      </h1>
+      <p class="text-xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+        Create a professional resume effortlessly with Jobzee's intuitive Resume Builder. Our tool guides you through each step, ensuring your resume stands out to employers.
+      </p>
+      <div class="flex justify-center space-x-4 mb-8">
+        <button onclick="document.getElementById('builder-form').classList.remove('hidden'); document.getElementById('hero').scrollIntoView({ behavior: 'smooth' });" class="bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+          Start Building Now
+        </button>
+        <button onclick="document.getElementById('resume-builder').scrollIntoView({ behavior: 'smooth' });" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+          Learn More
+        </button>
+      </div>
+      <div class="flex justify-center space-x-8 mt-12">
+        <div class="text-center animate-bounce-in">
+          <div class="text-3xl font-bold text-green-600">100+</div>
+          <div class="text-gray-600">Templates</div>
+        </div>
+        <div class="text-center animate-bounce-in">
+          <div class="text-3xl font-bold text-blue-600">50K+</div>
+          <div class="text-gray-600">Users</div>
+        </div>
+        <div class="text-center animate-bounce-in">
+          <div class="text-3xl font-bold text-indigo-600">95%</div>
+          <div class="text-gray-600">Success Rate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Build Your Resume: Step-by-Step Guide Section -->
+  <section class="py-16 bg-gradient-to-r from-green-50 via-blue-50 to-indigo-50">
+    <div class="container mx-auto px-8">
+      <h2 class="text-4xl font-black mb-12 text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 text-center animate-fadeIn">
+        How to Build Your Resume: Step-by-Step Guide
+      </h2>
+      <p class="text-xl text-gray-700 text-center mb-12 max-w-3xl mx-auto leading-relaxed">
+        Follow these simple steps to create a professional resume that stands out to employers.
+      </p>
+
+      <div class="bg-white rounded-2xl shadow-lg p-8 section-bg">
+        <ol class="space-y-8">
+          <li class="flex items-start">
+            <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">1</span>
+            <div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Gather Your Information</h3>
+              <p class="text-gray-600">Collect all your personal details, work experience, education, skills, and achievements. Have your contact information, job titles, company names, dates, and descriptions ready.</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">2</span>
+            <div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Choose a Template</h3>
+              <p class="text-gray-600">Select a template that matches your industry and style. Our Modern, Classic, and Creative templates are designed to highlight your strengths effectively.</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">3</span>
+            <div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Fill in Personal Details</h3>
+              <p class="text-gray-600">Enter your full name, email, phone, location, and a professional summary. This section creates the first impression, so make it concise and impactful.</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">4</span>
+            <div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Add Work Experience</h3>
+              <p class="text-gray-600">List your job titles, companies, dates, and key responsibilities. Use action verbs and quantify achievements to show your impact.</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-pink-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">5</span>
+            <div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Include Education</h3>
+              <p class="text-gray-600">Add your degrees, institutions, and graduation years. Include GPA or relevant coursework if applicable.</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-yellow-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">6</span>
+            <div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">List Skills</h3>
+              <p class="text-gray-600">Highlight your technical and soft skills. Tailor them to the job you're applying for to increase your chances.</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-orange-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">7</span>
+            <div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Preview and Download</h3>
+              <p class="text-gray-600">Review your resume for errors, then download it as a PDF. Customize further if needed and share it with confidence.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Indicators Section -->
+  <section class="py-16 bg-gradient-to-r from-green-50 via-blue-50 to-indigo-50">
+    <div class="container mx-auto px-8 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-12">Trusted by Professionals Worldwide</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div class="bg-white p-6 rounded-lg shadow-lg section-bg">
+          <i class="fas fa-award text-4xl text-green-600 mb-4"></i>
+          <h3 class="text-xl font-bold text-gray-800 mb-2">Award Winning</h3>
+          <p class="text-gray-600">Recognized for excellence in resume building technology</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg section-bg">
+          <i class="fas fa-shield-alt text-4xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-bold text-gray-800 mb-2">Secure & Private</h3>
+          <p class="text-gray-600">Your data is protected with enterprise-grade security</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg section-bg">
+          <i class="fas fa-clock text-4xl text-indigo-600 mb-4"></i>
+          <h3 class="text-xl font-bold text-gray-800 mb-2">Quick & Easy</h3>
+          <p class="text-gray-600">Create professional resumes in under 10 minutes</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg section-bg">
+          <i class="fas fa-star text-4xl text-yellow-500 mb-4"></i>
+          <h3 class="text-xl font-bold text-gray-800 mb-2">5-Star Rated</h3>
+          <p class="text-gray-600">Thousands of satisfied users and growing</p>
+        </div>
+      </div>
+
+      <!-- Additional Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="text-4xl font-bold text-green-600 mb-2">10K+</div>
+          <div class="text-gray-700 font-semibold">Success Stories</div>
+          <p class="text-gray-600 text-sm">Users who landed their dream jobs</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
+          <div class="text-gray-700 font-semibold">Support</div>
+          <p class="text-gray-600 text-sm">Round-the-clock assistance available</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-indigo-600 mb-2">99.9%</div>
+          <div class="text-gray-700 font-semibold">Uptime</div>
+          <p class="text-gray-600 text-sm">Reliable service you can count on</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Template Selection -->
+    <section class="mb-12 py-16 bg-gradient-to-r from-green-50 via-blue-50 to-indigo-50 rounded-2xl">
+      <div class="container mx-auto px-8">
+        <h2 class="text-4xl font-black mb-12 text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 text-center animate-fadeIn">
+          Choose Your Perfect Template
+        </h2>
+        <p class="text-xl text-gray-700 text-center mb-12 max-w-3xl mx-auto leading-relaxed">
+          Select from our professionally designed templates, each crafted to highlight your unique strengths and match your industry.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div class="template-card bg-white p-8 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+            <div class="relative overflow-hidden rounded-xl mb-6">
+              <img src="images/modernresume.webp" alt="Modern Resume Template" class="w-full h-64 object-contain transition-transform duration-300 group-hover:scale-110" />
+              <div class="absolute inset-0 bg-gradient-to-t from-green-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                Popular
+              </div>
+            </div>
+            <div class="text-center">
+              <h3 class="text-2xl font-bold mb-3 text-gray-800 group-hover:text-green-600 transition-colors">Modern Template</h3>
+              <p class="text-gray-600 mb-6 leading-relaxed">Clean and contemporary design perfect for tech and creative roles. Features modern typography and clean layouts.</p>
+              <div class="flex justify-center space-x-4 mb-6">
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">ATS-Friendly</span>
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">1-2 Pages</span>
+              </div>
+              <button onclick="selectTemplate('modern')" class="w-full bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl hover:from-green-700 hover:to-green-800 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+                <i class="fas fa-rocket mr-2"></i>Use Modern Template
+              </button>
+            </div>
+          </div>
+
+          <div class="template-card bg-white p-8 rounded-2xl shadow-xl border-2 border-transparent hover:border-blue-500 section-bg group">
+            <div class="relative overflow-hidden rounded-xl mb-6">
+              <img src="images/classicresume.png" alt="Classic Resume Template" class="w-full h-64 object-contain transition-transform duration-300 group-hover:scale-110" />
+              <div class="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                Professional
+              </div>
+            </div>
+            <div class="text-center">
+              <h3 class="text-2xl font-bold mb-3 text-gray-800 group-hover:text-blue-600 transition-colors">Classic Template</h3>
+              <p class="text-gray-600 mb-6 leading-relaxed">Traditional layout ideal for corporate and finance positions. Timeless design that appeals to conservative industries.</p>
+              <div class="flex justify-center space-x-4 mb-6">
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Traditional</span>
+                <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">1 Page</span>
+              </div>
+              <button onclick="selectTemplate('classic')" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+                <i class="fas fa-briefcase mr-2"></i>Use Classic Template
+              </button>
+            </div>
+          </div>
+
+          <div class="template-card bg-white p-8 rounded-2xl shadow-xl border-2 border-transparent hover:border-purple-500 section-bg group">
+            <div class="relative overflow-hidden rounded-xl mb-6">
+              <img src="images/creativeresume.jpg" alt="Creative Resume Template" class="w-full h-64 object-contain transition-transform duration-300 group-hover:scale-110" />
+              <div class="absolute inset-0 bg-gradient-to-t from-purple-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute top-4 right-4 bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                Creative
+              </div>
+            </div>
+            <div class="text-center">
+              <h3 class="text-2xl font-bold mb-3 text-gray-800 group-hover:text-purple-600 transition-colors">Creative Template</h3>
+              <p class="text-gray-600 mb-6 leading-relaxed">Eye-catching design for marketing and design professionals. Stand out with creative layouts and visual elements.</p>
+              <div class="flex justify-center space-x-4 mb-6">
+                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Visual</span>
+                <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">1-2 Pages</span>
+              </div>
+              <button onclick="selectTemplate('creative')" class="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white px-8 py-4 rounded-xl hover:from-purple-700 hover:to-purple-800 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+                <i class="fas fa-palette mr-2"></i>Use Creative Template
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template Features -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 section-bg">
+          <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">Why Choose Our Templates?</h3>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="text-center">
+              <i class="fas fa-check-circle text-3xl text-green-600 mb-3"></i>
+              <h4 class="font-semibold text-gray-800 mb-2">ATS Optimized</h4>
+              <p class="text-gray-600 text-sm">All templates are designed to pass Applicant Tracking Systems</p>
+            </div>
+            <div class="text-center">
+              <i class="fas fa-mobile-alt text-3xl text-blue-600 mb-3"></i>
+              <h4 class="font-semibold text-gray-800 mb-2">Mobile Friendly</h4>
+              <p class="text-gray-600 text-sm">Perfect display on all devices and screen sizes</p>
+            </div>
+            <div class="text-center">
+              <i class="fas fa-download text-3xl text-indigo-600 mb-3"></i>
+              <h4 class="font-semibold text-gray-800 mb-2">Easy Export</h4>
+              <p class="text-gray-600 text-sm">Download as PDF with professional formatting</p>
+            </div>
+            <div class="text-center">
+              <i class="fas fa-edit text-3xl text-purple-600 mb-3"></i>
+              <h4 class="font-semibold text-gray-800 mb-2">Fully Editable</h4>
+              <p class="text-gray-600 text-sm">Customize colors, fonts, and layout to your preference</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resume Builder Form (Initially Hidden) -->
+    <section id="builder-form" class="form-section hidden bg-gradient-to-br from-white via-green-50 to-blue-50 rounded-2xl shadow-2xl p-8 section-bg border border-green-100">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 animate-fadeIn">Build Your Resume</h2>
+        <button onclick="changeTemplate()" class="bg-gradient-to-r from-gray-200 to-gray-300 text-gray-700 px-6 py-3 rounded-xl hover:from-gray-300 hover:to-gray-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105">
+          <i class="fas fa-exchange-alt mr-2"></i>Change Template
+        </button>
+      </div>
+
+      <form id="resume-form" class="space-y-8">
+        <!-- Personal Information -->
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 p-8 rounded-2xl shadow-lg border border-green-200">
+          <h3 class="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 flex items-center">
+            <i class="fas fa-user-circle mr-3 text-green-600"></i>Personal Information
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-green-600 transition-colors">
+                <i class="fas fa-user mr-2"></i>Full Name *
+              </label>
+              <input type="text" id="full-name" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" required>
+            </div>
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-green-600 transition-colors">
+                <i class="fas fa-envelope mr-2"></i>Email *
+              </label>
+              <input type="email" id="email" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" required>
+            </div>
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-green-600 transition-colors">
+                <i class="fas fa-phone mr-2"></i>Phone *
+              </label>
+              <input type="tel" id="phone" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" required>
+            </div>
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-green-600 transition-colors">
+                <i class="fas fa-map-marker-alt mr-2"></i>Location
+              </label>
+              <input type="text" id="location" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md">
+            </div>
+          </div>
+          <div class="mt-6 group">
+            <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-green-600 transition-colors">
+              <i class="fas fa-quote-left mr-2"></i>Professional Summary
+            </label>
+            <textarea id="summary" rows="4" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md resize-none" placeholder="Brief description of your professional background and career goals..."></textarea>
+          </div>
+        </div>
+
+        <!-- Work Experience -->
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-lg border border-blue-200">
+          <h3 class="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center">
+            <i class="fas fa-briefcase mr-3 text-blue-600"></i>Work Experience
+          </h3>
+          <div id="experience-container">
+            <div class="experience-entry mb-6 p-6 border-2 border-blue-100 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="group">
+                  <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-blue-600 transition-colors">Job Title *</label>
+                  <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" required>
+                </div>
+                <div class="group">
+                  <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-blue-600 transition-colors">Company *</label>
+                  <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" required>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="group">
+                  <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-blue-600 transition-colors">Start Date</label>
+                  <input type="month" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md">
+                </div>
+                <div class="group">
+                  <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-blue-600 transition-colors">End Date</label>
+                  <input type="month" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md">
+                </div>
+              </div>
+              <div class="group">
+                <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-blue-600 transition-colors">Job Description</label>
+                <textarea rows="4" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md resize-none" placeholder="Describe your key responsibilities and achievements..."></textarea>
+              </div>
+            </div>
+          </div>
+          <button type="button" onclick="addExperience()" class="bg-gradient-to-r from-green-100 to-green-200 text-green-700 px-6 py-3 rounded-xl hover:from-green-200 hover:to-green-300 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105">
+            <i class="fas fa-plus mr-2"></i>Add Another Experience
+          </button>
+        </div>
+
+        <!-- Education -->
+        <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-2xl shadow-lg border border-indigo-200">
+          <h3 class="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center">
+            <i class="fas fa-graduation-cap mr-3 text-indigo-600"></i>Education
+          </h3>
+          <div id="education-container">
+            <div class="education-entry mb-6 p-6 border-2 border-indigo-100 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="group">
+                  <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-indigo-600 transition-colors">Degree *</label>
+                  <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" required>
+                </div>
+                <div class="group">
+                  <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-indigo-600 transition-colors">Institution *</label>
+                  <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" required>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="group">
+                  <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-indigo-600 transition-colors">Start Year</label>
+                  <input type="number" min="1950" max="2030" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md">
+                </div>
+                <div class="group">
+                  <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-indigo-600 transition-colors">End Year</label>
+                  <input type="number" min="1950" max="2030" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md">
+                </div>
+              </div>
+              <div class="group">
+                <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-indigo-600 transition-colors">GPA/Grade</label>
+                <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" placeholder="Optional">
+              </div>
+            </div>
+          </div>
+          <button type="button" onclick="addEducation()" class="bg-gradient-to-r from-green-100 to-green-200 text-green-700 px-6 py-3 rounded-xl hover:from-green-200 hover:to-green-300 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105">
+            <i class="fas fa-plus mr-2"></i>Add Another Education
+          </button>
+        </div>
+
+        <!-- Skills -->
+        <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-2xl shadow-lg border border-purple-200">
+          <h3 class="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 flex items-center">
+            <i class="fas fa-star mr-3 text-purple-600"></i>Skills
+          </h3>
+          <div class="group">
+            <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-purple-600 transition-colors">
+              <i class="fas fa-tags mr-2"></i>Skills (separate with commas)
+            </label>
+            <input type="text" id="skills" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" placeholder="e.g., JavaScript, Python, Project Management, Adobe Creative Suite">
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex justify-center space-x-6 pt-8">
+          <button type="button" onclick="previewResume()" class="bg-gradient-to-r from-green-600 to-green-700 text-white px-10 py-5 rounded-2xl hover:from-green-700 hover:to-green-800 transition-all duration-300 font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105">
+            <i class="fas fa-eye mr-3"></i>Preview Resume
+          </button>
+          <button type="button" onclick="downloadResume()" class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-10 py-5 rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105">
+            <i class="fas fa-download mr-3"></i>Download PDF
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Resume Preview (Initially Hidden) -->
+    <section id="resume-preview" class="form-section hidden bg-white rounded-lg shadow-lg p-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-green-600">Resume Preview</h2>
+        <button onclick="editResume()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition">
+          Edit Resume
+        </button>
+      </div>
+      <div id="preview-content" class="bg-white border-2 border-gray-200 rounded-lg p-8 min-h-96">
+        <div class="text-center text-gray-500">
+          <i class="fas fa-file-alt text-6xl mb-4"></i>
+          <p>Your resume preview will appear here after filling the form.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-gray-300 p-8 mt-12">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl">
+      <div>
+        <h3 class="font-bold mb-6">Jobzee</h3>
+        <p>India's first and fastest job portal</p>
+      </div>
+      <div>
+        <h3 class="font-bold mb-6">Services</h3>
+        <ul>
+          <li><a href="#" class="hover:underline">Job Search</a></li>
+          <li><a href="resume-builder.html" class="hover:underline">Resume Builder</a></li>
+          <li><a href="#" class="hover:underline">Career Advice</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-6">Company</h3>
+        <ul>
+          <li><a href="about.html" class="hover:underline">About Us</a></li>
+          <li><a href="#" class="hover:underline">Careers</a></li>
+          <li><a href="contact.html" class="hover:underline">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-6">Download App</h3>
+        <div class="flex space-x-6">
+          <a href="#"><img src="images/appstore.png" alt="App Store" class="h-12"></a>
+          <a href="#"><img src="images/playstore.png" alt="Google Play" class="h-12"></a>
+        </div>
+      </div>
+    </div>
+    <hr class="my-8 border-gray-700" />
+    <div class="text-center text-gray-500">
+      © 2025 Jobzee.
+    </div>
+  </footer>
+
+  <script>
+    let selectedTemplate = 'modern';
+    let formData = {};
+    let autoSaveTimer;
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      initializePage();
+      setupSmoothScrolling();
+      setupFormValidation();
+      setupAutoSave();
+      setupAnimations();
+    });
+
+    function initializePage() {
+      // Add loading animation
+      document.body.classList.add('animate-fadeIn');
+
+      // Initialize form with saved data if available
+      loadFormData();
+
+      // Setup navigation interactions
+      setupNavigation();
+    }
+
+    function setupSmoothScrolling() {
+      // Smooth scrolling for all anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    }
+
+    function setupNavigation() {
+      // Add active state to navigation links
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+          this.style.transform = 'scale(1.1) translateY(-2px)';
+        });
+
+        link.addEventListener('mouseleave', function() {
+          this.style.transform = 'scale(1) translateY(0)';
+        });
+      });
+    }
+
+    function setupFormValidation() {
+      const form = document.getElementById('resume-form');
+
+      // Real-time validation
+      form.addEventListener('input', function(e) {
+        validateField(e.target);
+        saveFormData();
+      });
+
+      // Enhanced form submission
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        previewResume();
+      });
+    }
+
+    function setupAutoSave() {
+      // Auto-save form data every 30 seconds
+      autoSaveTimer = setInterval(saveFormData, 30000);
+
+      // Save on page unload
+      window.addEventListener('beforeunload', saveFormData);
+    }
+
+    function setupAnimations() {
+      // Intersection Observer for scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fadeIn');
+          }
+        });
+      }, observerOptions);
+
+      // Observe sections for animation
+      document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+      });
+    }
+
+    function selectTemplate(template) {
+      selectedTemplate = template;
+
+      // Enhanced template selection with animation
+      const cards = document.querySelectorAll('.template-card');
+      cards.forEach((card, index) => {
+        card.classList.remove('border-green-500', 'border-blue-500', 'border-purple-500');
+
+        if (card.contains(event.target) || card.contains(event.target.closest('.template-card'))) {
+          const colors = {
+            modern: 'border-green-500',
+            classic: 'border-blue-500',
+            creative: 'border-purple-500'
+          };
+
+          card.classList.add(colors[template] || 'border-green-500');
+
+          // Add selection animation
+          card.style.animation = 'bounceIn 0.6s ease-out';
+          setTimeout(() => {
+            card.style.animation = '';
+          }, 600);
+        }
+      });
+
+      // Show form with animation
+      const form = document.getElementById('builder-form');
+      form.classList.remove('hidden');
+      form.style.animation = 'fadeIn 0.5s ease-in-out';
+
+      // Scroll to form with offset
+      setTimeout(() => {
+        form.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }, 100);
+
+      // Hide preview
+      document.getElementById('resume-preview').classList.add('hidden');
+
+      // Show success message
+      showNotification(`Template "${template}" selected successfully!`, 'success');
+    }
+
+    function changeTemplate() {
+      // Hide forms with animation
+      const form = document.getElementById('builder-form');
+      const preview = document.getElementById('resume-preview');
+
+      form.classList.add('hidden');
+      preview.classList.add('hidden');
+
+      // Reset template selection
+      document.querySelectorAll('.template-card').forEach(card => {
+        card.classList.remove('border-green-500', 'border-blue-500', 'border-purple-500');
+      });
+
+      // Scroll back to template selection
+      document.querySelector('.template-selection')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+
+      showNotification('Template changed. Please select a new template.', 'info');
+    }
+
+    function addExperience() {
+      const container = document.getElementById('experience-container');
+      const newEntry = container.querySelector('.experience-entry').cloneNode(true);
+
+      // Clear all input values
+      newEntry.querySelectorAll('input, textarea').forEach(field => {
+        field.value = '';
+        field.classList.remove('border-red-500', 'border-green-500');
+      });
+
+      // Add animation
+      newEntry.style.opacity = '0';
+      newEntry.style.transform = 'translateY(-20px)';
+      container.appendChild(newEntry);
+
+      // Animate in
+      setTimeout(() => {
+        newEntry.style.transition = 'all 0.3s ease';
+        newEntry.style.opacity = '1';
+        newEntry.style.transform = 'translateY(0)';
+      }, 10);
+
+      showNotification('New experience entry added!', 'success');
+    }
+
+    function addEducation() {
+      const container = document.getElementById('education-container');
+      const newEntry = container.querySelector('.education-entry').cloneNode(true);
+
+      // Clear all input values
+      newEntry.querySelectorAll('input').forEach(field => {
+        field.value = '';
+        field.classList.remove('border-red-500', 'border-green-500');
+      });
+
+      // Add animation
+      newEntry.style.opacity = '0';
+      newEntry.style.transform = 'translateY(-20px)';
+      container.appendChild(newEntry);
+
+      // Animate in
+      setTimeout(() => {
+        newEntry.style.transition = 'all 0.3s ease';
+        newEntry.style.opacity = '1';
+        newEntry.style.transform = 'translateY(0)';
+      }, 10);
+
+      showNotification('New education entry added!', 'success');
+    }
+
+    function validateField(field) {
+      const isValid = field.checkValidity();
+      const group = field.closest('.group') || field.closest('div');
+
+      if (field.value.trim() === '') {
+        field.classList.remove('border-green-500', 'border-red-500');
+        return;
+      }
+
+      if (isValid) {
+        field.classList.remove('border-red-500');
+        field.classList.add('border-green-500');
+        group?.classList.remove('error');
+      } else {
+        field.classList.remove('border-green-500');
+        field.classList.add('border-red-500');
+        group?.classList.add('error');
+      }
+    }
+
+    function previewResume() {
+      const form = document.getElementById('resume-form');
+      const requiredFields = form.querySelectorAll('[required]');
+      let isValid = true;
+
+      // Validate all required fields
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          field.classList.add('border-red-500');
+          isValid = false;
+        } else {
+          field.classList.remove('border-red-500');
+          field.classList.add('border-green-500');
+        }
+      });
+
+      if (!isValid) {
+        showNotification('Please fill in all required fields marked with *', 'error');
+        return;
+      }
+
+      // Generate preview with loading animation
+      showNotification('Generating preview...', 'info');
+
+      setTimeout(() => {
+        const previewContent = generateResumePreview();
+        document.getElementById('preview-content').innerHTML = previewContent;
+
+        // Show preview with animation
+        const preview = document.getElementById('resume-preview');
+        preview.classList.remove('hidden');
+        preview.style.animation = 'fadeIn 0.5s ease-in-out';
+
+        // Hide form
+        document.getElementById('builder-form').classList.add('hidden');
+
+        // Scroll to preview
+        preview.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+
+        showNotification('Preview generated successfully!', 'success');
+      }, 1000);
+    }
+
+    function generateResumePreview() {
+      const name = document.getElementById('full-name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const location = document.getElementById('location').value;
+      const summary = document.getElementById('summary').value;
+      const skills = document.getElementById('skills').value;
+
+      // Get experience entries
+      const experienceEntries = [];
+      const expElements = document.querySelectorAll('.experience-entry');
+      expElements.forEach((entry, index) => {
+        if (index === 0 || entry.querySelector('input[type="text"]').value) {
+          const jobTitle = entry.querySelector('input[type="text"]').value || 'Job Title';
+          const company = entry.querySelectorAll('input[type="text"]')[1].value || 'Company';
+          const startDate = entry.querySelector('input[type="month"]').value || '';
+          const endDate = entry.querySelectorAll('input[type="month"]')[1].value || '';
+          const description = entry.querySelector('textarea').value || 'Job description...';
+          experienceEntries.push({ jobTitle, company, startDate, endDate, description });
+        }
+      });
+
+      // Get education entries
+      const educationEntries = [];
+      const eduElements = document.querySelectorAll('.education-entry');
+      eduElements.forEach((entry, index) => {
+        if (index === 0 || entry.querySelector('input[type="text"]').value) {
+          const degree = entry.querySelector('input[type="text"]').value || 'Degree';
+          const institution = entry.querySelectorAll('input[type="text"]')[1].value || 'Institution';
+          const startYear = entry.querySelector('input[type="number"]').value || '';
+          const endYear = entry.querySelectorAll('input[type="number"]')[1].value || '';
+          const gpa = entry.querySelectorAll('input[type="text"]')[2].value || '';
+          educationEntries.push({ degree, institution, startYear, endYear, gpa });
+        }
+      });
+
+      // Generate template-specific HTML based on selectedTemplate
+      if (selectedTemplate === 'modern') {
+        return `
+          <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-2xl overflow-hidden" style="font-family: 'Roboto', sans-serif;">
+            <!-- Header Section -->
+            <div class="bg-gradient-to-r from-green-600 to-green-700 text-white p-8 text-center">
+              <h1 class="text-4xl font-bold mb-2">${name}</h1>
+              <div class="text-lg">
+                ${email} ${phone ? `| ${phone}` : ''} ${location ? `| ${location}` : ''}
+              </div>
+            </div>
+
+            <div class="p-8">
+              ${summary ? `
+                <div class="mb-8">
+                  <h2 class="text-2xl font-bold text-gray-900 mb-3 border-b-2 border-green-500 pb-2">Professional Summary</h2>
+                  <p class="text-gray-700 leading-relaxed">${summary}</p>
+                </div>
+              ` : ''}
+
+              <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-green-500 pb-2">Skills</h2>
+                <div class="flex flex-wrap gap-2">
+                  ${skills ? skills.split(',').map(skill => `<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">${skill.trim()}</span>`).join('') : '<p class="text-gray-500">No skills added</p>'}
+                </div>
+              </div>
+
+              <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-green-500 pb-2">Experience</h2>
+                <div class="space-y-6">
+                  ${experienceEntries.map(exp => `
+                    <div class="border-l-4 border-green-500 pl-6 hover:bg-green-50 p-4 rounded-r-lg transition-colors">
+                      <h3 class="text-xl font-semibold text-gray-900">${exp.jobTitle}</h3>
+                      <p class="text-green-600 font-medium">${exp.company} | ${exp.startDate} - ${exp.endDate || 'Present'}</p>
+                      <p class="text-gray-700 mt-2 leading-relaxed">${exp.description}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-green-500 pb-2">Education</h2>
+                <div class="space-y-4">
+                  ${educationEntries.map(edu => `
+                    <div class="border-l-4 border-green-500 pl-6 hover:bg-green-50 p-4 rounded-r-lg transition-colors">
+                      <h3 class="text-lg font-semibold text-gray-900">${edu.degree}</h3>
+                      <p class="text-green-600 font-medium">${edu.institution} | ${edu.startYear} - ${edu.endYear || 'Present'}</p>
+                      ${edu.gpa ? `<p class="text-gray-600">GPA: ${edu.gpa}</p>` : ''}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (selectedTemplate === 'classic') {
+        return `
+          <div class="max-w-4xl mx-auto bg-white p-8 shadow-2xl rounded-2xl" style="font-family: 'Times New Roman', serif;">
+            <!-- Header Section -->
+            <div class="text-center mb-8 border-b-2 border-gray-800 pb-6">
+              <h1 class="text-3xl font-bold text-gray-900 mb-2">${name}</h1>
+              <div class="text-gray-700">
+                ${email} ${phone ? `| ${phone}` : ''} ${location ? `| ${location}` : ''}
+              </div>
+            </div>
+
+            ${summary ? `
+              <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-2" style="text-transform: uppercase; letter-spacing: 1px;">Professional Summary</h2>
+                <p class="text-gray-700 leading-relaxed">${summary}</p>
+              </div>
+            ` : ''}
+
+            <div class="mb-6">
+              <h2 class="text-xl font-bold text-gray-900 mb-3" style="text-transform: uppercase; letter-spacing: 1px;">Skills</h2>
+              <p class="text-gray-700">${skills || 'No skills added'}</p>
+            </div>
+
+            <div class="mb-6">
+              <h2 class="text-xl font-bold text-gray-900 mb-3" style="text-transform: uppercase; letter-spacing: 1px;">Professional Experience</h2>
+              <div class="space-y-4">
+                ${experienceEntries.map(exp => `
+                  <div class="mb-4 hover:bg-gray-50 p-3 rounded transition-colors">
+                    <div class="flex justify-between items-start mb-1">
+                      <h3 class="font-bold text-gray-900">${exp.jobTitle}</h3>
+                      <span class="text-gray-600 text-sm">${exp.startDate} - ${exp.endDate || 'Present'}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 italic mb-2">${exp.company}</p>
+                    <p class="text-gray-700 leading-relaxed">${exp.description}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div>
+              <h2 class="text-xl font-bold text-gray-900 mb-3" style="text-transform: uppercase; letter-spacing: 1px;">Education</h2>
+              <div class="space-y-3">
+                ${educationEntries.map(edu => `
+                  <div class="hover:bg-gray-50 p-3 rounded transition-colors">
+                    <div class="flex justify-between items-start mb-1">
+                      <h3 class="font-bold text-gray-900">${edu.degree}</h3>
+                      <span class="text-gray-600 text-sm">${edu.startYear} - ${edu.endYear || 'Present'}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 italic">${edu.institution}</p>
+                    ${edu.gpa ? `<p class="text-gray-600">GPA: ${edu.gpa}</p>` : ''}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (selectedTemplate === 'creative') {
+        return `
+          <div class="max-w-4xl mx-auto bg-gradient-to-br from-purple-50 to-blue-50 p-8 shadow-2xl rounded-2xl" style="font-family: 'Roboto', sans-serif;">
+            <!-- Header Section -->
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-8 rounded-lg text-center mb-8">
+              <h1 class="text-4xl font-bold mb-2">${name}</h1>
+              <div class="text-lg">
+                ${email} ${phone ? `| ${phone}` : ''} ${location ? `| ${location}` : ''}
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                ${summary ? `
+                  <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3 flex items-center">
+                      <span class="w-3 h-3 bg-purple-500 rounded-full mr-3"></span>
+                      About Me
+                    </h2>
+                    <p class="text-gray-700 leading-relaxed bg-white p-4 rounded-lg shadow-sm">${summary}</p>
+                  </div>
+                ` : ''}
+
+                <div class="mb-8">
+                  <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-blue-500 rounded-full mr-3"></span>
+                    Skills
+                  </h2>
+                  <div class="bg-white p-4 rounded-lg shadow-sm">
+                    ${skills ? skills.split(',').map(skill => `<span class="inline-block bg-gradient-to-r from-purple-100 to-blue-100 text-purple-800 px-3 py-1 rounded-full text-sm m-1">${skill.trim()}</span>`).join('') : '<p class="text-gray-500">No skills added</p>'}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mb-8">
+                  <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-green-500 rounded-full mr-3"></span>
+                    Experience
+                  </h2>
+                  <div class="space-y-4">
+                    ${experienceEntries.map(exp => `
+                      <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-green-500 hover:shadow-md transition-shadow">
+                        <h3 class="text-lg font-semibold text-gray-900">${exp.jobTitle}</h3>
+                        <p class="text-purple-600 font-medium">${exp.company}</p>
+                        <p class="text-gray-600 text-sm">${exp.startDate} - ${exp.endDate || 'Present'}</p>
+                        <p class="text-gray-700 mt-2">${exp.description}</p>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <div>
+                  <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-orange-500 rounded-full mr-3"></span>
+                    Education
+                  </h2>
+                  <div class="space-y-3">
+                    ${educationEntries.map(edu => `
+                      <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-orange-500 hover:shadow-md transition-shadow">
+                        <h3 class="text-lg font-semibold text-gray-900">${edu.degree}</h3>
+                        <p class="text-blue-600 font-medium">${edu.institution}</p>
+                        <p class="text-gray-600 text-sm">${edu.startYear} - ${edu.endYear || 'Present'}</p>
+                        ${edu.gpa ? `<p class="text-gray-600">GPA: ${edu.gpa}</p>` : ''}
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Default fallback
+      return `
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center text-gray-500">
+            <i class="fas fa-file-alt text-6xl mb-4"></i>
+            <p>Template preview not available. Please select a template first.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function editResume() {
+      const preview = document.getElementById('resume-preview');
+      const form = document.getElementById('builder-form');
+
+      preview.classList.add('hidden');
+      form.classList.remove('hidden');
+
+      // Scroll to form
+      form.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+
+      showNotification('Back to editing mode', 'info');
+    }
+
+    function downloadResume() {
+      // Validate required fields
+      const form = document.getElementById('resume-form');
+      const requiredFields = form.querySelectorAll('[required]');
+      let isValid = true;
+
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          field.classList.add('border-red-500');
+          isValid = false;
+        } else {
+          field.classList.remove('border-red-500');
+          field.classList.add('border-green-500');
+        }
+      });
+
+      if (!isValid) {
+        showNotification('Please fill in all required fields marked with *', 'error');
+        return;
+      }
+
+      showNotification('Generating PDF...', 'info');
+
+      // Generate resume HTML directly from form data
+      const resumeHTML = generateResumeHTMLForDownload();
+
+      // Create temporary element for rendering
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = resumeHTML;
+      tempDiv.style.position = 'absolute';
+      tempDiv.style.left = '-9999px';
+      tempDiv.style.top = '-9999px';
+      tempDiv.style.width = '800px'; // Fixed width for consistent PDF
+      tempDiv.style.backgroundColor = '#ffffff'; // Ensure white background
+      document.body.appendChild(tempDiv);
+
+      // Allow time for rendering
+      setTimeout(() => {
+        // Use html2canvas on the temporary element
+        html2canvas(tempDiv, { 
+          scale: 2, 
+          useCORS: true, 
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          logging: false,
+          width: 800,
+          height: 1131 // Approximate A4 height in pixels at scale 1
+        }).then(canvas => {
+          // Remove temporary element
+          document.body.removeChild(tempDiv);
+
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = pdf.internal.pageSize.getHeight();
+          const imgWidth = canvas.width;
+          const imgHeight = canvas.height;
+          const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+          const imgX = (pdfWidth - imgWidth * ratio) / 2;
+          const imgY = 0;
+
+          pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+          pdf.save('resume.pdf');
+
+          showNotification('PDF downloaded successfully!', 'success');
+        }).catch(error => {
+          // Remove temporary element if error occurs
+          if (document.body.contains(tempDiv)) {
+            document.body.removeChild(tempDiv);
+          }
+          console.error('Error generating PDF:', error);
+          showNotification('Error generating PDF. Please try again. Check console for details.', 'error');
+        });
+      }, 500);
+    }
+
+    function generateResumeHTMLForDownload() {
+      const name = document.getElementById('full-name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const location = document.getElementById('location').value;
+      const summary = document.getElementById('summary').value;
+      const skills = document.getElementById('skills').value;
+
+      // Get experience entries
+      const experienceEntries = [];
+      const expElements = document.querySelectorAll('.experience-entry');
+      expElements.forEach((entry, index) => {
+        if (index === 0 || entry.querySelector('input[type="text"]').value) {
+          const jobTitle = entry.querySelector('input[type="text"]').value || 'Job Title';
+          const company = entry.querySelectorAll('input[type="text"]')[1].value || 'Company';
+          const startDate = entry.querySelector('input[type="month"]').value || '';
+          const endDate = entry.querySelectorAll('input[type="month"]')[1].value || '';
+          const description = entry.querySelector('textarea').value || 'Job description...';
+          experienceEntries.push({ jobTitle, company, startDate, endDate, description });
+        }
+      });
+
+      // Get education entries
+      const educationEntries = [];
+      const eduElements = document.querySelectorAll('.education-entry');
+      eduElements.forEach((entry, index) => {
+        if (index === 0 || entry.querySelector('input[type="text"]').value) {
+          const degree = entry.querySelector('input[type="text"]').value || 'Degree';
+          const institution = entry.querySelectorAll('input[type="text"]')[1].value || 'Institution';
+          const startYear = entry.querySelector('input[type="number"]').value || '';
+          const endYear = entry.querySelectorAll('input[type="number"]')[1].value || '';
+          const gpa = entry.querySelectorAll('input[type="text"]')[2].value || '';
+          educationEntries.push({ degree, institution, startYear, endYear, gpa });
+        }
+      });
+
+      // Generate template-specific HTML based on selectedTemplate
+      if (selectedTemplate === 'modern') {
+        return `
+          <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-2xl overflow-hidden" style="font-family: 'Inter', sans-serif; width: 800px;">
+            <!-- Header Section -->
+            <div class="bg-gradient-to-r from-green-600 to-green-700 text-white p-8 text-center">
+              <h1 class="text-4xl font-bold mb-2">${name}</h1>
+              <div class="text-lg">
+                ${email} ${phone ? `| ${phone}` : ''} ${location ? `| ${location}` : ''}
+              </div>
+            </div>
+
+            <div class="p-8">
+              ${summary ? `
+                <div class="mb-8">
+                  <h2 class="text-2xl font-bold text-gray-900 mb-3 border-b-2 border-green-500 pb-2">Professional Summary</h2>
+                  <p class="text-gray-700 leading-relaxed">${summary}</p>
+                </div>
+              ` : ''}
+
+              <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-green-500 pb-2">Skills</h2>
+                <div class="flex flex-wrap gap-2">
+                  ${skills ? skills.split(',').map(skill => `<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">${skill.trim()}</span>`).join('') : '<p class="text-gray-500">No skills added</p>'}
+                </div>
+              </div>
+
+              <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-green-500 pb-2">Experience</h2>
+                <div class="space-y-6">
+                  ${experienceEntries.map(exp => `
+                    <div class="border-l-4 border-green-500 pl-6 hover:bg-green-50 p-4 rounded-r-lg transition-colors">
+                      <h3 class="text-xl font-semibold text-gray-900">${exp.jobTitle}</h3>
+                      <p class="text-green-600 font-medium">${exp.company} | ${exp.startDate} - ${exp.endDate || 'Present'}</p>
+                      <p class="text-gray-700 mt-2 leading-relaxed">${exp.description}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-green-500 pb-2">Education</h2>
+                <div class="space-y-4">
+                  ${educationEntries.map(edu => `
+                    <div class="border-l-4 border-green-500 pl-6 hover:bg-green-50 p-4 rounded-r-lg transition-colors">
+                      <h3 class="text-lg font-semibold text-gray-900">${edu.degree}</h3>
+                      <p class="text-green-600 font-medium">${edu.institution} | ${edu.startYear} - ${edu.endYear || 'Present'}</p>
+                      ${edu.gpa ? `<p class="text-gray-600">GPA: ${edu.gpa}</p>` : ''}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (selectedTemplate === 'classic') {
+        return `
+          <div class="max-w-4xl mx-auto bg-white p-8 shadow-2xl rounded-2xl" style="font-family: 'Open Sans', serif; width: 800px;">
+            <!-- Header Section -->
+            <div class="text-center mb-8 border-b-2 border-gray-800 pb-6">
+              <h1 class="text-3xl font-bold text-gray-900 mb-2">${name}</h1>
+              <div class="text-gray-700">
+                ${email} ${phone ? `| ${phone}` : ''} ${location ? `| ${location}` : ''}
+              </div>
+            </div>
+
+            ${summary ? `
+              <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-2" style="text-transform: uppercase; letter-spacing: 1px;">Professional Summary</h2>
+                <p class="text-gray-700 leading-relaxed">${summary}</p>
+              </div>
+            ` : ''}
+
+            <div class="mb-6">
+              <h2 class="text-xl font-bold text-gray-900 mb-3" style="text-transform: uppercase; letter-spacing: 1px;">Skills</h2>
+              <p class="text-gray-700">${skills || 'No skills added'}</p>
+            </div>
+
+            <div class="mb-6">
+              <h2 class="text-xl font-bold text-gray-900 mb-3" style="text-transform: uppercase; letter-spacing: 1px;">Professional Experience</h2>
+              <div class="space-y-4">
+                ${experienceEntries.map(exp => `
+                  <div class="mb-4 hover:bg-gray-50 p-3 rounded transition-colors">
+                    <div class="flex justify-between items-start mb-1">
+                      <h3 class="font-bold text-gray-900">${exp.jobTitle}</h3>
+                      <span class="text-gray-600 text-sm">${exp.startDate} - ${exp.endDate || 'Present'}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 italic mb-2">${exp.company}</p>
+                    <p class="text-gray-700 leading-relaxed">${exp.description}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div>
+              <h2 class="text-xl font-bold text-gray-900 mb-3" style="text-transform: uppercase; letter-spacing: 1px;">Education</h2>
+              <div class="space-y-3">
+                ${educationEntries.map(edu => `
+                  <div class="hover:bg-gray-50 p-3 rounded transition-colors">
+                    <div class="flex justify-between items-start mb-1">
+                      <h3 class="font-bold text-gray-900">${edu.degree}</h3>
+                      <span class="text-gray-600 text-sm">${edu.startYear} - ${edu.endYear || 'Present'}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 italic">${edu.institution}</p>
+                    ${edu.gpa ? `<p class="text-gray-600">GPA: ${edu.gpa}</p>` : ''}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (selectedTemplate === 'creative') {
+        return `
+          <div class="max-w-4xl mx-auto bg-gradient-to-br from-purple-50 to-blue-50 p-8 shadow-2xl rounded-2xl" style="font-family: 'Inter', sans-serif; width: 800px;">
+            <!-- Header Section -->
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-8 rounded-lg text-center mb-8">
+              <h1 class="text-4xl font-bold mb-2">${name}</h1>
+              <div class="text-lg">
+                ${email} ${phone ? `| ${phone}` : ''} ${location ? `| ${location}` : ''}
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                ${summary ? `
+                  <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3 flex items-center">
+                      <span class="w-3 h-3 bg-purple-500 rounded-full mr-3"></span>
+                      About Me
+                    </h2>
+                    <p class="text-gray-700 leading-relaxed bg-white p-4 rounded-lg shadow-sm">${summary}</p>
+                  </div>
+                ` : ''}
+
+                <div class="mb-8">
+                  <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-blue-500 rounded-full mr-3"></span>
+                    Skills
+                  </h2>
+                  <div class="bg-white p-4 rounded-lg shadow-sm">
+                    ${skills ? skills.split(',').map(skill => `<span class="inline-block bg-gradient-to-r from-purple-100 to-blue-100 text-purple-800 px-3 py-1 rounded-full text-sm m-1">${skill.trim()}</span>`).join('') : '<p class="text-gray-500">No skills added</p>'}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mb-8">
+                  <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-green-500 rounded-full mr-3"></span>
+                    Experience
+                  </h2>
+                  <div class="space-y-4">
+                    ${experienceEntries.map(exp => `
+                      <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-green-500 hover:shadow-md transition-shadow">
+                        <h3 class="text-lg font-semibold text-gray-900">${exp.jobTitle}</h3>
+                        <p class="text-purple-600 font-medium">${exp.company}</p>
+                        <p class="text-gray-600 text-sm">${exp.startDate} - ${exp.endDate || 'Present'}</p>
+                        <p class="text-gray-700 mt-2">${exp.description}</p>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <div>
+                  <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-orange-500 rounded-full mr-3"></span>
+                    Education
+                  </h2>
+                  <div class="space-y-3">
+                    ${educationEntries.map(edu => `
+                      <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-orange-500 hover:shadow-md transition-shadow">
+                        <h3 class="text-lg font-semibold text-gray-900">${edu.degree}</h3>
+                        <p class="text-blue-600 font-medium">${edu.institution}</p>
+                        <p class="text-gray-600 text-sm">${edu.startYear} - ${edu.endYear || 'Present'}</p>
+                        ${edu.gpa ? `<p class="text-gray-600">GPA: ${edu.gpa}</p>` : ''}
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Default fallback
+      return `
+        <div class="max-w-4xl mx-auto" style="width: 800px;">
+          <div class="text-center text-gray-500">
+            <i class="fas fa-file-alt text-6xl mb-4"></i>
+            <p>Template not selected. Please select a template first.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function saveFormData() {
+      const formData = new FormData(document.getElementById('resume-form'));
+      const data = {};
+      for (let [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+      localStorage.setItem('resumeFormData', JSON.stringify(data));
+    }
+
+    function loadFormData() {
+      const savedData = localStorage.getItem('resumeFormData');
+      if (savedData) {
+        const data = JSON.parse(savedData);
+        Object.keys(data).forEach(key => {
+          const element = document.getElementById(key);
+          if (element) {
+            element.value = data[key];
+          }
+        });
+      }
+    }
+
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ${
+        type === 'success' ? 'bg-green-500 text-white' :
+        type === 'error' ? 'bg-red-500 text-white' :
+        'bg-blue-500 text-white'
+      }`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

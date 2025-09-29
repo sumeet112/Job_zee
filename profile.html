@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Profile - Jobzee</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 25%, #ecfdf5 50%, #f0f9ff 75%, #fefce8 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .template-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .template-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .form-section {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .button-transition {
+      transition: all 0.3s ease;
+    }
+
+    .button-transition:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .animate-bounce-in {
+      animation: bounceIn 0.6s ease-out;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .pattern-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .section-bg {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #e0f2fe;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .edit-mode {
+      display: none;
+    }
+
+    .display-mode {
+      display: block;
+    }
+
+    .edit-mode.active {
+      display: block;
+    }
+
+    .display-mode.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+  <!-- Header -->
+  <header class="bg-gradient-to-br from-green-50 via-blue-50 to-indigo-50 shadow-xl border-b-2 border-green-200">
+    <div class="container mx-auto flex justify-between items-center p-6">
+      <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 flex items-center transform hover:scale-105 transition-all duration-300">
+        <img src="images/jobzeelogo.png" alt="Jobzee Logo" class="h-20 mr-4 animate-pulse" />
+        Jobzee
+      </h1>
+      <nav class="space-x-8 text-gray-800 font-bold">
+        <a href="index2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Home</a>
+        <a href="about2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">About Us</a>
+        <a href="profile.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Profile</a>
+        <a href="contact2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Contact</a>
+        <a href="reviews.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Company Reviews</a>
+        <a href="admin.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative bg-gradient-to-br from-green-50 via-blue-50 to-indigo-50 py-20 overflow-hidden">
+    <div class="container mx-auto text-center px-8">
+      <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 mb-6 animate-fadeIn">
+        Manage Your Professional Profile
+      </h1>
+      <p class="text-xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+        Keep your profile updated to attract the best job opportunities. Showcase your skills, experience, and achievements.
+      </p>
+      <div class="flex justify-center space-x-4 mb-8">
+        <button onclick="toggleEditMode()" id="edit-btn" class="bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+          <i class="fas fa-edit mr-2"></i>Edit Profile
+        </button>
+        <button onclick="exportProfile()" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+          <i class="fas fa-download mr-2"></i>Export Profile
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profile Content -->
+  <main class="container mx-auto px-8 py-12">
+    <!-- Personal Information Section -->
+    <section class="mb-12 section-bg p-8 rounded-2xl">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 flex items-center">
+          <i class="fas fa-user-circle mr-3 text-green-600"></i>Personal Information
+        </h2>
+        <button onclick="toggleSection('personal')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div>
+
+      <!-- Display Mode -->
+      <div id="personal-display" class="display-mode active">
+        <div class="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+          <img id="profile-photo-display" src="images/unnamed.png" alt="Profile Photo" class="profile-photo" />
+          <div class="flex-1">
+            <h3 id="full-name-display" class="text-2xl font-bold text-gray-900 mb-2">John Doe</h3>
+            <p id="headline-display" class="text-lg text-gray-600 mb-4">Software Developer with 5+ years of experience</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+              <p><i class="fas fa-envelope mr-2 text-green-600"></i><span id="email-display">john.doe@example.com</span></p>
+              <p><i class="fas fa-phone mr-2 text-blue-600"></i><span id="phone-display">+1 (555) 123-4567</span></p>
+              <p><i class="fas fa-map-marker-alt mr-2 text-indigo-600"></i><span id="location-display">New York, NY</span></p>
+              <p><i class="fas fa-calendar mr-2 text-purple-600"></i><span id="dob-display">January 1, 1990</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Mode -->
+      <div id="personal-edit" class="edit-mode">
+        <form id="personal-form" class="space-y-6">
+          <div class="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+            <div class="text-center">
+              <img id="profile-photo-preview" src="images/unnamed.png" alt="Profile Photo" class="profile-photo mb-4" />
+              <input type="file" id="profile-photo" accept="image/*" class="hidden" onchange="previewPhoto()">
+              <button type="button" onclick="document.getElementById('profile-photo').click()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                <i class="fas fa-camera mr-2"></i>Change Photo
+              </button>
+            </div>
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="group">
+                <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-green-600 transition-colors">
+                  <i class="fas fa-user mr-2"></i>Full Name *
+                </label>
+                <input type="text" id="full-name" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" required>
+              </div>
+              <div class="group">
+                <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-green-600 transition-colors">
+                  <i class="fas fa-envelope mr-2"></i>Email *
+                </label>
+                <input type="email" id="email" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" required>
+              </div>
+              <div class="group">
+                <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-green-600 transition-colors">
+                  <i class="fas fa-phone mr-2"></i>Phone
+                </label>
+                <input type="tel" id="phone" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md">
+              </div>
+              <div class="group">
+                <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-green-600 transition-colors">
+                  <i class="fas fa-map-marker-alt mr-2"></i>Location
+                </label>
+                <input type="text" id="location" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md">
+              </div>
+              <div class="group">
+                <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-green-600 transition-colors">
+                  <i class="fas fa-heading mr-2"></i>Professional Headline
+                </label>
+                <input type="text" id="headline" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" placeholder="e.g., Software Developer with 5+ years of experience">
+              </div>
+              <div class="group">
+                <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-green-600 transition-colors">
+                  <i class="fas fa-calendar mr-2"></i>Date of Birth
+                </label>
+                <input type="date" id="dob" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md">
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-end space-x-4">
+            <button type="button" onclick="cancelEdit('personal')" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-300 transition">
+              Cancel
+            </button>
+            <button type="button" onclick="savePersonalInfo()" class="bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition">
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Work Experience Section -->
+    <section class="mb-12 section-bg p-8 rounded-2xl">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center">
+          <i class="fas fa-briefcase mr-3 text-blue-600"></i>Work Experience
+        </h2>
+        <button onclick="toggleSection('experience')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div>
+
+      <!-- Display Mode -->
+      <div id="experience-display" class="display-mode active">
+        <div id="experience-list" class="space-y-6">
+          <!-- Experience items will be populated by JS -->
+        </div>
+      </div>
+
+      <!-- Edit Mode -->
+      <div id="experience-edit" class="edit-mode">
+        <div id="experience-edit-container">
+          <!-- Experience edit forms will be populated by JS -->
+        </div>
+        <button type="button" onclick="addExperience()" class="bg-green-100 text-green-700 px-6 py-3 rounded-xl hover:bg-green-200 transition font-semibold shadow-lg hover:shadow-xl transform hover:scale-105">
+          <i class="fas fa-plus mr-2"></i>Add Experience
+        </button>
+        <div class="flex justify-end space-x-4 mt-6">
+          <button type="button" onclick="cancelEdit('experience')" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-300 transition">
+            Cancel
+          </button>
+          <button type="button" onclick="saveExperience()" class="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="mb-12 section-bg p-8 rounded-2xl">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center">
+          <i class="fas fa-graduation-cap mr-3 text-indigo-600"></i>Education
+        </h2>
+        <button onclick="toggleSection('education')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div>
+
+      <!-- Display Mode -->
+      <div id="education-display" class="display-mode active">
+        <div id="education-list" class="space-y-6">
+          <!-- Education items will be populated by JS -->
+        </div>
+      </div>
+
+      <!-- Edit Mode -->
+      <div id="education-edit" class="edit-mode">
+        <div id="education-edit-container">
+          <!-- Education edit forms will be populated by JS -->
+        </div>
+        <button type="button" onclick="addEducation()" class="bg-green-100 text-green-700 px-6 py-3 rounded-xl hover:bg-green-200 transition font-semibold shadow-lg hover:shadow-xl transform hover:scale-105">
+          <i class="fas fa-plus mr-2"></i>Add Education
+        </button>
+        <div class="flex justify-end space-x-4 mt-6">
+          <button type="button" onclick="cancelEdit('education')" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-300 transition">
+            Cancel
+          </button>
+          <button type="button" onclick="saveEducation()" class="bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 transition">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="mb-12 section-bg p-8 rounded-2xl">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 flex items-center">
+          <i class="fas fa-star mr-3 text-purple-600"></i>Skills
+        </h2>
+        <button onclick="toggleSection('skills')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div>
+
+      <!-- Display Mode -->
+      <div id="skills-display" class="display-mode active">
+        <div id="skills-list" class="flex flex-wrap gap-2">
+          <!-- Skills will be populated by JS -->
+        </div>
+      </div>
+
+      <!-- Edit Mode -->
+      <div id="skills-edit" class="edit-mode">
+        <div class="group">
+          <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-purple-600 transition-colors">
+            <i class="fas fa-tags mr-2"></i>Skills (separate with commas)
+          </label>
+          <input type="text" id="skills-input" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" placeholder="e.g., JavaScript, Python, Project Management, Adobe Creative Suite">
+        </div>
+        <div class="flex justify-end space-x-4 mt-6">
+          <button type="button" onclick="cancelEdit('skills')" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-300 transition">
+            Cancel
+          </button>
+          <button type="button" onclick="saveSkills()" class="bg-purple-600 text-white px-6 py-3 rounded-xl hover:bg-purple-700 transition">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="mb-12 section-bg p-8 rounded-2xl">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-red-600 flex items-center">
+          <i class="fas fa-certificate mr-3 text-pink-600"></i>Certifications
+        </h2>
+        <button onclick="toggleSection('certifications')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div>
+
+      <!-- Display Mode -->
+      <div id="certifications-display" class="display-mode active">
+        <div id="certifications-list" class="space-y-6">
+          <!-- Certifications will be populated by JS -->
+        </div>
+      </div>
+
+      <!-- Edit Mode -->
+      <div id="certifications-edit" class="edit-mode">
+        <div id="certifications-edit-container">
+          <!-- Certifications edit forms will be populated by JS -->
+        </div>
+        <button type="button" onclick="addCertification()" class="bg-green-100 text-green-700 px-6 py-3 rounded-xl hover:bg-green-200 transition font-semibold shadow-lg hover:shadow-xl transform hover:scale-105">
+          <i class="fas fa-plus mr-2"></i>Add Certification
+        </button>
+        <div class="flex justify-end space-x-4 mt-6">
+          <button type="button" onclick="cancelEdit('certifications')" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-300 transition">
+            Cancel
+          </button>
+          <button type="button" onclick="saveCertifications()" class="bg-pink-600 text-white px-6 py-3 rounded-xl hover:bg-pink-700 transition">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section class="mb-12 section-bg p-8 rounded-2xl">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-600 flex items-center">
+          <i class="fas fa-file-alt mr-3 text-red-600"></i>Resume
+        </h2>
+        <button onclick="toggleSection('resume')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div>
+
+      <!-- Display Mode -->
+      <div id="resume-display" class="display-mode active">
+        <div id="resume-display-content">
+          <!-- Resume will be displayed here -->
+        </div>
+      </div>
+
+      <!-- Edit Mode -->
+      <div id="resume-edit" class="edit-mode">
+        <div class="space-y-6">
+          <div class="group">
+            <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-red-600 transition-colors">
+              <i class="fas fa-upload mr-2"></i>Upload Resume (PDF, DOC, DOCX)
+            </label>
+            <input type="file" id="resume-upload" accept=".pdf,.doc,.docx" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-red-500/20 focus:border-red-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" onchange="handleResumeUpload()">
+          </div>
+          <div id="uploaded-resume-preview" class="hidden">
+            <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+              <h4 class="text-red-800 font-semibold mb-2">Uploaded Resume</h4><br>
+              <p class="text-gray-700 mb-2"><i class="fas fa-file-alt mr-2"></i><span id="uploaded-resume-name"></span></p>
+              <a id="download-resume" href="#" download class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+                <i class="fas fa-download mr-2"></i>Download Resume
+              </a>
+            </div>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-600 mb-4">Or</p>
+            <a href="resume-builder.html" class="bg-orange-600 text-white px-6 py-3 rounded-xl hover:bg-orange-700 transition font-semibold shadow-lg hover:shadow-xl transform hover:scale-105">
+              <i class="fas fa-edit mr-2"></i>Create Resume
+            </a>
+          </div>
+        </div>
+        <div class="flex justify-end space-x-4 mt-6">
+          <button type="button" onclick="cancelEdit('resume')" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-300 transition">
+            Cancel
+          </button>
+          <button type="button" onclick="saveResume()" class="bg-red-600 text-white px-6 py-3 rounded-xl hover:bg-red-700 transition">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 p-8 mt-12">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl">
+      <div>
+        <h3 class="font-bold mb-6">Jobzee</h3>
+        <p>India's first and fastest job portal</p>
+      </div>
+      <div>
+        <h3 class="font-bold mb-6">Services</h3>
+        <ul>
+          <li><a href="#" class="hover:underline">Job Search</a></li>
+          <li><a href="resume-builder.html" class="hover:underline">Resume Builder</a></li>
+          <li><a href="#" class="hover:underline">Career Advice</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-6">Company</h3>
+        <ul>
+          <li><a href="about.html" class="hover:underline">About Us</a></li>
+          <li><a href="#" class="hover:underline">Careers</a></li>
+          <li><a href="contact.html" class="hover:underline">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-6">Download App</h3>
+        <div class="flex space-x-6">
+          <a href="#"><img src="images/appstore.png" alt="App Store" class="h-12"></a>
+          <a href="#"><img src="images/playstore.png" alt="Google Play" class="h-12"></a>
+        </div>
+      </div>
+    </div>
+    <hr class="my-8 border-gray-700" />
+    <div class="text-center text-gray-500">
+      © 2025 Jobzee.
+    </div>
+  </footer>
+
+  <script>
+    let profileData = {};
+    let isEditMode = false;
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      loadProfileData();
+      renderProfile();
+      setupSmoothScrolling();
+    });
+
+    function setupSmoothScrolling() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    }
+
+    function loadProfileData() {
+      const savedData = localStorage.getItem('userProfileData');
+      if (savedData) {
+        profileData = JSON.parse(savedData);
+      } else {
+        // Mock initial data
+        profileData = {
+          personal: {
+            fullName: 'John Doe',
+            email: 'john.doe@example.com',
+            phone: '+1 (555) 123-4567',
+            location: 'New York, NY',
+            headline: 'Software Developer with 5+ years of experience',
+            dob: '1990-01-01',
+            photo: 'images/unnamed.png'
+          },
+          experience: [
+            {
+              jobTitle: 'Senior Software Developer',
+              company: 'Tech Corp',
+              startDate: '2020-01',
+              endDate: '',
+              description: 'Led development of web applications using React and Node.js. Managed a team of 3 developers.'
+            },
+            {
+              jobTitle: 'Software Developer',
+              company: 'Startup Inc',
+              startDate: '2018-06',
+              endDate: '2019-12',
+              description: 'Developed and maintained backend services using Python and Django.'
+            }
+          ],
+          education: [
+            {
+              degree: 'Bachelor of Science in Computer Science',
+              institution: 'University of Technology',
+              startYear: '2014',
+              endYear: '2018',
+              gpa: '3.8'
+            }
+          ],
+          skills: ['JavaScript', 'Python', 'React', 'Node.js', 'Django', 'SQL'],
+          certifications: [],
+          resume: '',
+          resumeData: ''
+        };
+      }
+    }
+
+    function saveProfileData() {
+      localStorage.setItem('userProfileData', JSON.stringify(profileData));
+    }
+
+    function renderProfile() {
+      renderPersonalInfo();
+      renderExperience();
+      renderEducation();
+      renderSkills();
+      renderCertifications();
+      renderResume();
+    }
+
+    function renderPersonalInfo() {
+      const personal = profileData.personal || {};
+      document.getElementById('full-name-display').textContent = personal.fullName || 'Not provided';
+      document.getElementById('email-display').textContent = personal.email || 'Not provided';
+      document.getElementById('phone-display').textContent = personal.phone || 'Not provided';
+      document.getElementById('location-display').textContent = personal.location || 'Not provided';
+      document.getElementById('headline-display').textContent = personal.headline || 'Not provided';
+      document.getElementById('dob-display').textContent = personal.dob ? new Date(personal.dob).toLocaleDateString() : 'Not provided';
+      document.getElementById('profile-photo-display').src = personal.photo || 'images/unnamed.png';
+
+      // Fill edit form
+      document.getElementById('full-name').value = personal.fullName || '';
+      document.getElementById('email').value = personal.email || '';
+      document.getElementById('phone').value = personal.phone || '';
+      document.getElementById('location').value = personal.location || '';
+      document.getElementById('headline').value = personal.headline || '';
+      document.getElementById('dob').value = personal.dob || '';
+      document.getElementById('profile-photo-preview').src = personal.photo || 'images/unnamed.png';
+    }
+
+    function renderExperience() {
+      const experienceList = document.getElementById('experience-list');
+      experienceList.innerHTML = '';
+
+      if (!profileData.experience || profileData.experience.length === 0) {
+        experienceList.innerHTML = '<p class="text-gray-500">No work experience added yet.</p>';
+        return;
+      }
+
+      profileData.experience.forEach((exp, index) => {
+        const expDiv = document.createElement('div');
+        expDiv.className = 'border-l-4 border-blue-500 pl-6 hover:bg-blue-50 p-4 rounded-r-lg transition-colors';
+        expDiv.innerHTML = `
+          <h3 class="text-xl font-semibold text-gray-900">${exp.jobTitle}</h3>
+          <p class="text-blue-600 font-medium">${exp.company} | ${exp.startDate} - ${exp.endDate || 'Present'}</p>
+          <p class="text-gray-700 mt-2 leading-relaxed">${exp.description}</p>
+        `;
+        experienceList.appendChild(expDiv);
+      });
+
+      // Render edit forms
+      renderExperienceEdit();
+    }
+
+    function renderExperienceEdit() {
+      const container = document.getElementById('experience-edit-container');
+      container.innerHTML = '';
+
+      if (!profileData.experience) profileData.experience = [];
+
+      profileData.experience.forEach((exp, index) => {
+        const expDiv = document.createElement('div');
+        expDiv.className = 'experience-entry mb-6 p-6 border-2 border-blue-100 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow';
+        expDiv.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-blue-600 transition-colors">Job Title *</label>
+              <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${exp.jobTitle || ''}" required>
+            </div>
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-blue-600 transition-colors">Company *</label>
+              <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${exp.company || ''}" required>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-blue-600 transition-colors">Start Date</label>
+              <input type="month" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${exp.startDate || ''}">
+            </div>
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-blue-600 transition-colors">End Date</label>
+              <input type="month" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${exp.endDate || ''}">
+            </div>
+          </div>
+          <div class="group">
+            <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-blue-600 transition-colors">Job Description</label>
+            <textarea rows="4" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md resize-none">${exp.description || ''}</textarea>
+          </div>
+          <button type="button" onclick="removeExperience(${index})" class="mt-4 bg-red-100 text-red-700 px-4 py-2 rounded hover:bg-red-200 transition">
+            <i class="fas fa-trash mr-2"></i>Remove
+          </button>
+        `;
+        container.appendChild(expDiv);
+      });
+    }
+
+    function renderEducation() {
+      const educationList = document.getElementById('education-list');
+      educationList.innerHTML = '';
+
+      if (!profileData.education || profileData.education.length === 0) {
+        educationList.innerHTML = '<p class="text-gray-500">No education added yet.</p>';
+        return;
+      }
+
+      profileData.education.forEach((edu, index) => {
+        const eduDiv = document.createElement('div');
+        eduDiv.className = 'border-l-4 border-indigo-500 pl-6 hover:bg-indigo-50 p-4 rounded-r-lg transition-colors';
+        eduDiv.innerHTML = `
+          <h3 class="text-lg font-semibold text-gray-900">${edu.degree}</h3>
+          <p class="text-indigo-600 font-medium">${edu.institution} | ${edu.startYear} - ${edu.endYear || 'Present'}</p>
+          ${edu.gpa ? `<p class="text-gray-600">GPA: ${edu.gpa}</p>` : ''}
+        `;
+        educationList.appendChild(eduDiv);
+      });
+
+      // Render edit forms
+      renderEducationEdit();
+    }
+
+    function renderEducationEdit() {
+      const container = document.getElementById('education-edit-container');
+      container.innerHTML = '';
+
+      if (!profileData.education) profileData.education = [];
+
+      profileData.education.forEach((edu, index) => {
+        const eduDiv = document.createElement('div');
+        eduDiv.className = 'education-entry mb-6 p-6 border-2 border-indigo-100 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow';
+        eduDiv.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-indigo-600 transition-colors">Degree *</label>
+              <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${edu.degree || ''}" required>
+            </div>
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-indigo-600 transition-colors">Institution *</label>
+              <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${edu.institution || ''}" required>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-indigo-600 transition-colors">Start Year</label>
+              <input type="number" min="1950" max="2030" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${edu.startYear || ''}">
+            </div>
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-indigo-600 transition-colors">End Year</label>
+              <input type="number" min="1950" max="2030" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${edu.endYear || ''}">
+            </div>
+          </div>
+          <div class="group">
+            <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-indigo-600 transition-colors">GPA/Grade</label>
+            <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${edu.gpa || ''}" placeholder="Optional">
+          </div>
+          <button type="button" onclick="removeEducation(${index})" class="mt-4 bg-red-100 text-red-700 px-4 py-2 rounded hover:bg-red-200 transition">
+            <i class="fas fa-trash mr-2"></i>Remove
+          </button>
+        `;
+        container.appendChild(eduDiv);
+      });
+    }
+
+    function renderSkills() {
+      const skillsList = document.getElementById('skills-list');
+      skillsList.innerHTML = '';
+
+      if (!profileData.skills || profileData.skills.length === 0) {
+        skillsList.innerHTML = '<p class="text-gray-500">No skills added yet.</p>';
+        return;
+      }
+
+      profileData.skills.forEach(skill => {
+        const skillSpan = document.createElement('span');
+        skillSpan.className = 'bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm';
+        skillSpan.textContent = skill;
+        skillsList.appendChild(skillSpan);
+      });
+
+      // Fill edit input
+      document.getElementById('skills-input').value = profileData.skills.join(', ');
+    }
+
+    function renderCertifications() {
+      const certificationsList = document.getElementById('certifications-list');
+      certificationsList.innerHTML = '';
+
+      if (!profileData.certifications || profileData.certifications.length === 0) {
+        certificationsList.innerHTML = '<p class="text-gray-500">No certifications added yet.</p>';
+        return;
+      }
+
+      profileData.certifications.forEach((cert, index) => {
+        const certDiv = document.createElement('div');
+        certDiv.className = 'border-l-4 border-pink-500 pl-6 hover:bg-pink-50 p-4 rounded-r-lg transition-colors';
+        certDiv.innerHTML = `
+          <h3 class="text-xl font-semibold text-gray-900">${cert.name}</h3>
+          <p class="text-pink-600 font-medium">${cert.issuer} | ${cert.date}</p>
+          ${cert.description ? `<p class="text-gray-700 mt-2 leading-relaxed">${cert.description}</p>` : ''}
+        `;
+        certificationsList.appendChild(certDiv);
+      });
+
+      // Render edit forms
+      renderCertificationsEdit();
+    }
+
+    function renderCertificationsEdit() {
+      const container = document.getElementById('certifications-edit-container');
+      container.innerHTML = '';
+
+      if (!profileData.certifications) profileData.certifications = [];
+
+      profileData.certifications.forEach((cert, index) => {
+        const certDiv = document.createElement('div');
+        certDiv.className = 'certification-entry mb-6 p-6 border-2 border-pink-100 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow';
+        certDiv.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-pink-600 transition-colors">Certification Name *</label>
+              <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-pink-500/20 focus:border-pink-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${cert.name || ''}" required>
+            </div>
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-pink-600 transition-colors">Issuing Organization *</label>
+              <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-pink-500/20 focus:border-pink-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${cert.issuer || ''}" required>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-pink-600 transition-colors">Issue Date</label>
+              <input type="month" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-pink-500/20 focus:border-pink-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${cert.date || ''}">
+            </div>
+            <div class="group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-pink-600 transition-colors">Credential ID</label>
+              <input type="text" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-pink-500/20 focus:border-pink-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md" value="${cert.credentialId || ''}" placeholder="Optional">
+            </div>
+          </div>
+          <div class="group">
+            <label class="block text-sm font-semibold text-gray-700 mb-3 group-focus-within:text-pink-600 transition-colors">Description</label>
+            <textarea rows="3" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-pink-500/20 focus:border-pink-500 transition-all duration-300 bg-white shadow-sm hover:shadow-md resize-none" placeholder="Optional">${cert.description || ''}</textarea>
+          </div>
+          <button type="button" onclick="removeCertification(${index})" class="mt-4 bg-red-100 text-red-700 px-4 py-2 rounded hover:bg-red-200 transition">
+            <i class="fas fa-trash mr-2"></i>Remove
+          </button>
+        `;
+        container.appendChild(certDiv);
+      });
+    }
+
+    function renderResume() {
+      const resumeDisplay = document.getElementById('resume-display-content');
+      resumeDisplay.innerHTML = '';
+
+      if (!profileData.resume || profileData.resume === '') {
+        resumeDisplay.innerHTML = '<p class="text-gray-500">No resume uploaded yet.</p>';
+        return;
+      }
+
+      // Display resume file name or link
+      const resumeDiv = document.createElement('div');
+      resumeDiv.className = 'flex items-center space-x-4';
+      resumeDiv.innerHTML = `
+        <i class="fas fa-file-alt text-red-600 text-2xl"></i>
+        <div>
+          <p class="text-gray-900 font-medium">Resume Uploaded</p>
+          <p class="text-gray-600 text-sm">${profileData.resume}</p>
+          ${profileData.resumeData ? `<a href="${profileData.resumeData}" download="${profileData.resume}" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition text-sm">
+            <i class="fas fa-download mr-2"></i>Download Resume
+          </a>` : ''}
+        </div>
+      `;
+      resumeDisplay.appendChild(resumeDiv);
+    }
+
+    function toggleEditMode() {
+      isEditMode = !isEditMode;
+      const editBtn = document.getElementById('edit-btn');
+      if (isEditMode) {
+        editBtn.innerHTML = '<i class="fas fa-save mr-2"></i>Save All Changes';
+        editBtn.className = 'bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105';
+        editBtn.onclick = saveAllChanges;
+        showNotification('Edit mode enabled. Make your changes and click Save All Changes.', 'info');
+      } else {
+        editBtn.innerHTML = '<i class="fas fa-edit mr-2"></i>Edit Profile';
+        editBtn.className = 'bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105';
+        editBtn.onclick = toggleEditMode;
+        showNotification('Exited edit mode.', 'info');
+      }
+    }
+
+    function toggleSection(section) {
+      const displayDiv = document.getElementById(`${section}-display`);
+      const editDiv = document.getElementById(`${section}-edit`);
+
+      if (displayDiv.classList.contains('active')) {
+        displayDiv.classList.remove('active');
+        editDiv.classList.add('active');
+      } else {
+        displayDiv.classList.add('active');
+        editDiv.classList.remove('active');
+      }
+    }
+
+    function cancelEdit(section) {
+      toggleSection(section);
+    }
+
+    function savePersonalInfo() {
+      const personal = {
+        fullName: document.getElementById('full-name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        location: document.getElementById('location').value,
+        headline: document.getElementById('headline').value,
+        dob: document.getElementById('dob').value,
+        photo: document.getElementById('profile-photo-preview').src
+      };
+
+      profileData.personal = personal;
+      saveProfileData();
+      renderPersonalInfo();
+      toggleSection('personal');
+      showNotification('Personal information saved successfully!', 'success');
+    }
+
+    function previewPhoto() {
+      const file = document.getElementById('profile-photo').files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('profile-photo-preview').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function addExperience() {
+      if (!profileData.experience) profileData.experience = [];
+      profileData.experience.push({
+        jobTitle: '',
+        company: '',
+        startDate: '',
+        endDate: '',
+        description: ''
+      });
+      renderExperienceEdit();
+    }
+
+    function removeExperience(index) {
+      profileData.experience.splice(index, 1);
+      renderExperienceEdit();
+    }
+
+    function saveExperience() {
+      const entries = document.querySelectorAll('.experience-entry');
+      const experience = [];
+
+      entries.forEach(entry => {
+        const inputs = entry.querySelectorAll('input, textarea');
+        experience.push({
+          jobTitle: inputs[0].value,
+          company: inputs[1].value,
+          startDate: inputs[2].value,
+          endDate: inputs[3].value,
+          description: inputs[4].value
+        });
+      });
+
+      profileData.experience = experience;
+      saveProfileData();
+      renderExperience();
+      toggleSection('experience');
+      showNotification('Work experience saved successfully!', 'success');
+    }
+
+    function addEducation() {
+      if (!profileData.education) profileData.education = [];
+      profileData.education.push({
+        degree: '',
+        institution: '',
+        startYear: '',
+        endYear: '',
+        gpa: ''
+      });
+      renderEducationEdit();
+    }
+
+    function removeEducation(index) {
+      profileData.education.splice(index, 1);
+      renderEducationEdit();
+    }
+
+    function saveEducation() {
+      const entries = document.querySelectorAll('.education-entry');
+      const education = [];
+
+      entries.forEach(entry => {
+        const inputs = entry.querySelectorAll('input');
+        education.push({
+          degree: inputs[0].value,
+          institution: inputs[1].value,
+          startYear: inputs[2].value,
+          endYear: inputs[3].value,
+          gpa: inputs[4].value
+        });
+      });
+
+      profileData.education = education;
+      saveProfileData();
+      renderEducation();
+      toggleSection('education');
+      showNotification('Education saved successfully!', 'success');
+    }
+
+    function saveSkills() {
+      const skillsInput = document.getElementById('skills-input').value;
+      const skills = skillsInput.split(',').map(skill => skill.trim()).filter(skill => skill);
+
+      profileData.skills = skills;
+      saveProfileData();
+      renderSkills();
+      toggleSection('skills');
+      showNotification('Skills saved successfully!', 'success');
+    }
+
+    function addCertification() {
+      if (!profileData.certifications) profileData.certifications = [];
+      profileData.certifications.push({
+        name: '',
+        issuer: '',
+        date: '',
+        credentialId: '',
+        description: ''
+      });
+      renderCertificationsEdit();
+    }
+
+    function removeCertification(index) {
+      profileData.certifications.splice(index, 1);
+      renderCertificationsEdit();
+    }
+
+    function saveCertifications() {
+      const entries = document.querySelectorAll('.certification-entry');
+      const certifications = [];
+
+      entries.forEach(entry => {
+        const inputs = entry.querySelectorAll('input, textarea');
+        certifications.push({
+          name: inputs[0].value,
+          issuer: inputs[1].value,
+          date: inputs[2].value,
+          credentialId: inputs[3].value,
+          description: inputs[4].value
+        });
+      });
+
+      profileData.certifications = certifications;
+      saveProfileData();
+      renderCertifications();
+      toggleSection('certifications');
+      showNotification('Certifications saved successfully!', 'success');
+    }
+
+    function handleResumeUpload() {
+      const fileInput = document.getElementById('resume-upload');
+      const file = fileInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profileData.resumeData = e.target.result;
+          profileData.resume = file.name;
+          renderResume();
+          updateResumeEdit();
+          showNotification('Resume uploaded successfully!', 'success');
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function updateResumeEdit() {
+      const previewDiv = document.getElementById('uploaded-resume-preview');
+      const nameSpan = document.getElementById('uploaded-resume-name');
+      const downloadLink = document.getElementById('download-resume');
+
+      if (profileData.resumeData && profileData.resume) {
+        nameSpan.textContent = profileData.resume;
+        downloadLink.href = profileData.resumeData;
+        downloadLink.download = profileData.resume;
+        previewDiv.classList.remove('hidden');
+      } else {
+        previewDiv.classList.add('hidden');
+      }
+    }
+
+    function saveResume() {
+      // Resume is already saved in handleResumeUpload
+      // This function is for consistency with other sections
+      saveProfileData();
+      toggleSection('resume');
+      showNotification('Resume saved successfully!', 'success');
+    }
+
+    function saveAllChanges() {
+      // Save all sections
+      savePersonalInfo();
+      saveExperience();
+      saveEducation();
+      saveSkills();
+      saveCertifications();
+      saveResume();
+
+      // Reset edit mode
+      isEditMode = false;
+      const editBtn = document.getElementById('edit-btn');
+      editBtn.innerHTML = '<i class="fas fa-edit mr-2"></i>Edit Profile';
+      editBtn.className = 'bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105';
+      editBtn.onclick = toggleEditMode;
+
+      showNotification('All changes saved successfully!', 'success');
+    }
+
+    function exportProfile() {
+      showNotification('Generating profile PDF...', 'info');
+
+      // Simple export using html2canvas
+      const profileElement = document.querySelector('main');
+      html2canvas(profileElement, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff'
+      }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+        const imgX = (pdfWidth - imgWidth * ratio) / 2;
+        const imgY = 0;
+
+        pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+        pdf.save('profile.pdf');
+
+        showNotification('Profile PDF downloaded successfully!', 'success');
+      }).catch(error => {
+        console.error('Error generating PDF:', error);
+        showNotification('Error generating PDF. Please try again.', 'error');
+      });
+    }
+
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ${
+        type === 'success' ? 'bg-green-500 text-white' :
+        type === 'error' ? 'bg-red-500 text-white' :
+        'bg-blue-500 text-white'
+      }`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

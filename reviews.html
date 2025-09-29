@@ -1,0 +1,479 @@
+<html>
+ <head>
+  <title>
+   Company Reviews - Jobzee
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 25%, #ecfdf5 50%, #f0f9ff 75%, #fefce8 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .template-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .template-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .form-section {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .button-transition {
+      transition: all 0.3s ease;
+    }
+
+    .button-transition:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .animate-bounce-in {
+      animation: bounceIn 0.6s ease-out;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .pattern-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .section-bg {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+  /* Active navigation link styles */
+  nav a.active {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+    border-bottom: 2px solid #22c55e;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+  </style>
+ </head>
+ <body class="bg-white text-gray-900">
+  <header class="bg-gradient-to-br from-green-50 via-blue-50 to-indigo-50 shadow-xl border-b-2 border-green-200">
+    <div class="container mx-auto flex justify-between items-center p-6">
+      <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 flex items-center transform hover:scale-105 transition-all duration-300">
+        <img src="images/jobzeelogo.png" alt="Jobzee Logo" class="h-20 mr-4 animate-pulse" />
+        Jobzee
+      </h1>
+      <nav class="space-x-8 text-gray-800 font-bold">
+        <ul class="flex space-x-8 items-center">
+          <li><a href="index2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Home</a></li>
+          <li><a href="about2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">About Us</a></li>
+          <li id="login-nav-item"><a href="profile.html" id="login-link" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Profile</a></li>
+          <li><a href="contact2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Contact</a></li>
+          <li><a href="reviews.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Company Reviews</a></li>
+          <li><a href="admin.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mx-auto p-6">
+   <section class="mb-8">
+    <h2 class="text-4xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 text-center animate-fadeIn">Company Reviews</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for Tech Solutions" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/9eqXqjQzssI_jciKk_H_V7ApQ0tODteMOKoCkZVV1Nw.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        Tech Solutions
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star-half-alt text-yellow-500"></i>
+       4.5/5
+      </p>
+      <p class="text-gray-700">
+       "Great place to work with a supportive team and excellent growth opportunities."
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for Data Corp" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/-cJi3LFM0GjHHIApMDg7vr8n-vDVdVG7UcZ04yJiHA0.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        Data Corp
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       5/5
+      </p>
+      <p class="text-gray-700">
+       "Innovative projects and a great work-life balance. Highly recommend!"
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for Innovate Inc." class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/DSVhmVfRU2OkU4HeZKz7gyNyuCeZXZv0zbv6TJS2DAI.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        Innovate Inc.
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star-half-alt text-yellow-500"></i>
+       4.5/5
+      </p>
+      <p class="text-gray-700">
+       "Dynamic environment with lots of learning opportunities. Great management."
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for Creative Minds" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/3lWtLQwyKhqpRfawEJponU1AWcx-hEDYx9DK7kE0ypU.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        Creative Minds
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       5/5
+      </p>
+      <p class="text-gray-700">
+       "A creative and inspiring place to work. The team is fantastic!"
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for Market Leaders" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/WEop5wpRS91UJK_-al2wpvsFvLmQfABOFp5tULnOb64.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        Market Leaders
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star-half-alt text-yellow-500"></i>
+       4.5/5
+      </p>
+      <p class="text-gray-700">
+       "Excellent company culture and great career advancement opportunities."
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for People First" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/rhaPb-0ATl7szN6L5dSnuilpM55a0loZcvYJVV9pQ30.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        People First
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       5/5
+      </p>
+      <p class="text-gray-700">
+       "Supportive management and a great place to grow your career."
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for Design Studio" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/_U1kwpDyYZ6QGtQFDPVTG98cHMDipFKkk3Oq_0qh8Ho.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        Design Studio
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star-half-alt text-yellow-500"></i>
+       4.5/5
+      </p>
+      <p class="text-gray-700">
+       "Creative environment with lots of opportunities to showcase your talent."
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for Biz Solutions" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/nH_phWrH5Iqa7x1FuJU8zarD0zPO0etSgcwnmd0bGBI.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        Biz Solutions
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       5/5
+      </p>
+      <p class="text-gray-700">
+       "Great place to work with a focus on employee development."
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for Sales Hub" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/Uubg14_UskyklfYx2APn1mbgPHwg0HtJZbth5yvO6Nw.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        Sales Hub
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star-half-alt text-yellow-500"></i>
+       4.5/5
+      </p>
+      <p class="text-gray-700">
+       "Excellent sales training and supportive team environment."
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for Ops Experts" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/ZIpPkzeoecOsOUP_eTy9km7xutGqJxEncM5XWVtjshQ.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        Ops Experts
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       5/5
+      </p>
+      <p class="text-gray-700">
+       "Great place to work with a focus on operational excellence."
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for Write Right" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/7J9KlfD_NcyfF93OQtWAxj0sFXwAy3F1r4-jCW9lqOU.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        Write Right
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star-half-alt text-yellow-500"></i>
+       4.5/5
+      </p>
+      <p class="text-gray-700">
+       "Supportive team and great opportunities for writers."
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for Support Solutions" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/S8PQhObsTeN8oypbG3j2iCaF9wlNkvCHb2vRQuT4AjM.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        Support Solutions
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       5/5
+      </p>
+      <p class="text-gray-700">
+       "Excellent customer support training and career growth."
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for IT Solutions" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/i4VX_EvjmspbfMJ6y900T6gvT-4QP0wRcNjF_eivxXw.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        IT Solutions
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star-half-alt text-yellow-500"></i>
+       4.5/5
+      </p>
+      <p class="text-gray-700">
+       "Great place to work with a focus on IT support and services."
+      </p>
+     </div>
+     <div class="template-card bg-white p-6 rounded-2xl shadow-xl border-2 border-transparent hover:border-green-500 section-bg group">
+      <div class="flex items-center mb-4">
+       <img alt="Company logo for FinCorp" class="w-12 h-12 mr-4" height="50" src="https://storage.googleapis.com/a1aa/image/wa7R5Rbc8ASCrkhR6D6od5YAqPeWpnG9eBmEzI9aW9k.jpg" width="50"/>
+       <h3 class="text-lg font-semibold group-hover:text-green-600 transition-colors">
+        FinCorp
+       </h3>
+      </div>
+      <p class="text-gray-700 mb-2">
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       <i class="fas fa-star text-yellow-500"></i>
+       5/5
+      </p>
+      <p class="text-gray-700">
+       "Excellent financial services and great career opportunities."
+      </p>
+     </div>
+    </div>
+   </section>
+  </main>
+  <footer class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-300 p-8 mt-8 shadow-2xl">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="animate-fadeIn">
+        <h3 class="font-bold mb-4 text-white">Jobzee</h3>
+        <p>India's first and fastest job portal</p>
+      </div>
+      <div class="animate-fadeIn">
+        <h3 class="font-bold mb-4 text-white">Services</h3>
+        <ul>
+          <li><a href="#" class="hover:text-green-400 transition-colors">Job Search</a></li>
+          <li><a href="#" class="hover:text-green-400 transition-colors">Resume Builder</a></li>
+          <li><a href="#" class="hover:text-green-400 transition-colors">Career Advice</a></li>
+        </ul>
+      </div>
+      <div class="animate-fadeIn">
+        <h3 class="font-bold mb-4 text-white">Company</h3>
+        <ul>
+          <li><a href="about.html" class="hover:text-green-400 transition-colors">About Us</a></li>
+          <li><a href="#" class="hover:text-green-400 transition-colors">Careers</a></li>
+          <li><a href="contact.html" class="hover:text-green-400 transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div class="animate-fadeIn">
+        <h3 class="font-bold mb-4 text-white">Download App</h3>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:scale-110 transition-transform"><img src="images/appstore.png" alt="App Store" class="h-10"></a>
+          <a href="#" class="hover:scale-110 transition-transform"><img src="images/playstore.png" alt="Google Play" class="h-10"></a>
+        </div>
+      </div>
+    </div>
+    <hr class="my-6 border-gray-700" />
+    <div class="text-center text-gray-500">
+      © 2025 Jobzee.
+    </div>
+  </footer>
+
+  <script>
+    // Active navigation state
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+      const links = document.querySelectorAll('nav a[href]');
+      links.forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Check login status and update UI
+    window.addEventListener('load', function() {
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      const userEmail = localStorage.getItem('userEmail');
+      const loginLink = document.getElementById('login-link');
+
+      if (isLoggedIn === 'true' && userEmail) {
+        // User is logged in - show user menu
+        loginLink.innerHTML = `
+          <div class="relative group">
+            <button class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer flex items-center">
+              <i class="fas fa-user-circle mr-2"></i>
+              ${userEmail.split('@')[0]}
+              <i class="fas fa-chevron-down ml-1 text-xs"></i>
+            </button>
+            <div class="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+              <div class="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
+                <i class="fas fa-user mr-2 text-green-500"></i>
+                ${userEmail}
+              </div>
+              <button onclick="logout()" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors duration-200">
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                Logout
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    });
+
+    // Logout function
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userEmail');
+        window.location.reload();
+      }
+    }
+  </script>
+ </body>
+</html>
