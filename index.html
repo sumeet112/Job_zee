@@ -120,24 +120,9 @@ button:hover {
         Jobzee
       </h1>
       <nav class="space-x-8 text-gray-800 font-bold">
-        <div id="profile-menu" class="relative group hidden">
-          
-        <a href="index.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Home</a>
+        <a href="index2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Home</a>
         <a href="about2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">About Us</a>
-          <div class="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 origin-top-right">
-            <div class="flex items-center px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
-              <i class="fas fa-user mr-2 text-green-500 flex-shrink-0"></i>
-              <span class="truncate">User Email</span>
-            </div>
-            <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-              <i class="fas fa-user mr-2 text-green-500"></i>Profile
-            </a>
-            <button onclick="logout()" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors duration-200">
-              <i class="fas fa-sign-out-alt mr-2"></i>
-              Logout
-            </button>
-          </div>
-        </div>
+        <a href="profile.html" id="login-link" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Profile</a>
         <a href="contact2.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Contact</a>
         <a href="reviews.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Company Reviews</a>
         <a href="admin.html" class="hover:text-green-600 hover:scale-110 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/50 cursor-pointer">Admin</a>
@@ -638,7 +623,7 @@ button:hover {
 
           <!-- Action Buttons -->
           <div class="flex space-x-2 mt-auto">
-            <button class="ml-4 bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-3 rounded-xl hover:from-green-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl font-bold text-sm group">
+            <button id="apply-btn-${index}" class="apply-btn ml-4 bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-3 rounded-xl hover:from-green-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl font-bold text-sm group" data-job-index="${index}">
               <div class="flex items-center justify-center">
                 <i class="fas fa-paper-plane mr-2 group-hover:animate-bounce"></i>
                 Apply Now
@@ -657,9 +642,11 @@ button:hover {
           <div class="absolute inset-0 bg-gradient-to-r from-green-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
         `;
 
-        // Add click event to pass job info to details.html via URL parameters
-        div.querySelector('.bg-gradient-to-r').addEventListener('click', function(event) {
+        // Add click event for apply button
+        div.querySelector('.apply-btn').addEventListener('click', function(event) {
           event.preventDefault();
+          alert(`Application submitted for ${job.title} at ${job.company}!`);
+          // Optionally navigate to details or application confirmation page
           const url = new URL('details.html', window.location.href);
           url.searchParams.set('title', job.title);
           url.searchParams.set('company', job.company);
@@ -805,54 +792,14 @@ button:hover {
       console.log('isLoggedIn:', isLoggedIn, 'userEmail:', userEmail);
 
       const loginLink = document.getElementById('login-link');
-      const profileMenu = document.getElementById('profile-menu');
 
-      if (!loginLink || !profileMenu) {
-        console.error('Login link or profile menu elements not found!');
+      if (!loginLink) {
+        console.error('Login link not found!');
         return;
       }
 
       if (isLoggedIn === 'true' && userEmail) {
-        console.log('User logged in, updating UI');
-        // User is logged in - show profile menu and hide login link
-        profileMenu.classList.remove('hidden');
-        loginLink.style.display = 'none';
-
-        // Update profile button with user info (fallback to full email if no @)
-        const username = userEmail.includes('@') ? userEmail.split('@')[0] : userEmail;
-        const profileButton = profileMenu.querySelector('button');
-        if (profileButton) {
-          profileButton.innerHTML = `
-            <i class="fas fa-user-circle mr-2"></i>
-            ${username}
-            <i class="fas fa-chevron-down ml-1 text-xs"></i>
-          `;
-        }
-
-        // Update dropdown with user info, profile, and logout
-        const dropdown = profileMenu.querySelector('.absolute');
-        if (dropdown) {
-          dropdown.innerHTML = `
-            <div class="flex items-center px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
-              <i class="fas fa-user mr-2 text-green-500 flex-shrink-0"></i>
-              <span class="truncate">${userEmail}</span>
-            </div>
-            <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-              <i class="fas fa-user mr-2 text-green-500"></i>Profile
-            </a>
-            <button onclick="logout()" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors duration-200">
-              <i class="fas fa-sign-out-alt mr-2"></i>
-              Logout
-            </button>
-          `;
-        }
-      } else {
-        console.log('User not logged in, showing login link');
-        profileMenu.classList.add('hidden');
-        loginLink.style.display = 'inline-block';
-      }
-    });
-
+        console.log('User logged in, hiding login link');
     // Logout function
     function logout() {
       if (confirm('Are you sure you want to logout?')) {
@@ -861,6 +808,8 @@ button:hover {
         window.location.reload();
       }
     }
+      }
+    });
   </script>
 
  </body>
